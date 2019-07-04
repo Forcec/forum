@@ -1,0 +1,124 @@
+div.menu{
+    background-color: #020111;
+    height: 3rem;
+    display: flex;
+    margin: 0;
+}
+div{
+    margin: 2rem 4rem;
+    background-color: #020111;
+    height: 3rem;
+    display: flex;
+    font-family: "Microsoft JhengHei Light";
+}
+div > a {
+    margin: auto;
+    display: block;
+    font-size: 0.8rem;
+    color: white;
+    font-family: "Microsoft JhengHei Light";
+    text-decoration: none;
+}
+form.add_article {
+    margin: 2rem 0;
+}
+input.add_article {
+    background-color: white;
+    color: #020111;
+}
+.add_article {
+    margin: 0.5rem 0;
+    width: 100%;
+    font-family: "Microsoft JhengHei Light";
+}
+input.registration, input.add_article {
+    font-size: 0.8rem;
+    background-color: white;
+    color: #020111;
+}
+input[type="submit"] {
+    height: 3rem;
+}
+.registration {
+    margin: 0.5rem 0;
+    width: 100%;
+    font-family: "Microsoft JhengHei Light";
+}
+form.registration {
+    margin: 2rem 0;
+}
+textarea {
+    overflow: auto;
+
+}
+div.print_errors {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: #ff3534;
+    height: auto;
+}
+h6#show_password {
+    font-family: "Microsoft JhengHei Light";
+    user-select: none;
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Показать пароль */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    font-size: 17px;
+    font-family: "Microsoft JhengHei Light";
+    user-select: none;
+}
+
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    left: 0;
+    height: 17px;
+    width: 17px;
+    background-color: #eee;
+}
+
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.container .checkmark:after {
+    left: 5px;
+    top: 3px;
+    width: 4px;
+    height: 6px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
