@@ -1,9 +1,5 @@
-div.menu{
-    background-color: #020111;
-    height: 3rem;
-    display: flex;
-    margin: 0;
-}
+/* sidebar*/
+
 div{
     margin: 2rem 4rem;
     background-color: #020111;
@@ -45,7 +41,8 @@ input[type="submit"] {
     font-family: "Microsoft JhengHei Light";
 }
 form.registration {
-    margin: 2rem 0;
+    margin: 2rem 2rem;
+    width: 65rem;
 }
 textarea {
     overflow: auto;
@@ -122,3 +119,61 @@ h6#show_password {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+
+
+
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+#mainNav {
+    background-color: #020111;
+    font-size:0;
+    text-align:center;
+    width:100%;
+}
+
+#mainNav ul {font-size:12px; }
+#mainNav i {font-size:3em;}
+#mainNav li {display:inline-block; height:inherit;}
+
+#mainNav a {
+    color:#fff;
+    font-family: Century Gothic;
+    font-size: 1em;
+    display:block;
+    height:inherit;
+    margin:0;
+    padding:1em 1em;
+    text-decoration:none;
+}
+h5 {
+    color: white;
+    font-family: "Century Gothic";
+    margin-right: -550px;
+}
+ul.sub-menu>li>a:hover {
+    background-color: #020111;  transition: background .25s ease;
+    z-index: 1000;
+}
+#mainNav li .sub-menu {
+    background-color: #ff6600;
+    position:absolute;
+    left:-9999px;
+    opacity:0;
+    transition: opacity .75s;
+    width:100%;
+    z-index:10;
+}
+
+#mainNav li:hover .sub-menu {
+    left:0px;
+    opacity:1;
+}
+
+#mainNav .sub-menu a {
+    height:1em; line-height:3em;
+    padding:0 2em;
+    height:inherit;
+    width:100%;
+}
+
+#mainNav .sub-menu a:hover {background-color:#f60;}

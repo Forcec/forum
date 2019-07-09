@@ -3,7 +3,6 @@
 include_once "menu.php";
 #region Проверка корректности данных для регистрации
 require_once("db.php");
-define("SALT", "65@@");
 
 function check_registration($login_of_user, $email_of_user,
                             $password_of_user, $repeat_password_of_user, $db)
@@ -34,7 +33,7 @@ function return_errors($login_of_user, $email_of_user, $password_of_user, $repea
 {
 
     return array_merge(return_errors_in_login($login_of_user), return_errors_in_email($email_of_user),
-        return_errors_in_password($password_of_user), return_errors_in_repeat_password($repeat_password_of_user, $password_of_user),return_errors_in_db($db, $_POST['login_of_user'], $_POST['email_of_user'], $_POST['password_of_user']));
+        return_errors_in_password($password_of_user), return_errors_in_repeat_password($repeat_password_of_user, $password_of_user), return_errors_in_db($db, $_POST['login_of_user'], $_POST['email_of_user'], $_POST['password_of_user']));
 }
 
 function return_errors_in_login($login_of_user)
@@ -107,30 +106,51 @@ function return_errors_in_repeat_password($repeat_password_of_user, $password_of
     return $errors_in_repeat_password;
 }
 
+function return_errors_in_db($db, $login_of_user, $email_of_user, $password_of_user)
+{
+    $errors_in_db = [''];
+    $stmt = $db->prepare("SELECT * FROM users WHERE login=:login");
+    $stmt->execute(array('login' => $login_of_user));
+    $is_login_exist = $stmt->fetch();
+    if ($is_login_exist) {
+        array_push($errors_in_db, "Пользователь с таким логином уже существует<br>");
+    }
+
+    $stmt = $db->prepare("SELECT * FROM users WHERE email=:email");
+    $stmt->execute(array('email' => $email_of_user));
+    $is_login_exist = $stmt->fetch();
+    if ($is_login_exist) {
+        array_push($errors_in_db, "Пользователь с таким email уже существует<br>");
+    }
+    return $errors_in_db;
+}
+
 #endregion
 
 ?>
-    <form class="registration" method="post" action="registration.php">
+<form class="registration" method="post" action="registration.php">
 
-        Логин<br>
-        <input type="text" class="registration" name="login_of_user"><br>
-        email<br>
-        <input type="text" class="registration" name="email_of_user"></input><br>
-        Пароль<br>
-        <input type="password" class="registration" name="password_of_user"></textarea><br>
-        Подтверждение пароля<br>
-        <input type="password" class="registration" name="repeat_password_of_user"></textarea><br>
-        <label class="container"><h6 id="show_password">Показать пароль</h6>
-            <input type="checkbox">
-            <span class="checkmark"></span>
-        </label>
+    Логин<br>
+    <input type="text" class="registration" name="login_of_user"><br>
+    email<br>
+    <input type="text" class="registration" name="email_of_user"></input><br>
+    Пароль<br>
+    <input type="password" id="password_of_user" class="registration" name="password_of_user"></textarea><br>
+    Подтверждение пароля<br>
+    <input type="password" class="registration" name="repeat_password_of_user"></textarea><br>
+    <label class="container" id="show_password"><a href="#">Показать пароль</a>
+        <input type="checkbox" ">
+        <span class="checkmark"></span>
+    </label>
 
-        <input class="registration" type="submit" value="Добавить" name="registration_button">
-    </form>
+    <input class="registration" type="submit" value="Добавить" name="registration_button">
+</form>
 <?php
 if (isset($_POST['registration_button'])) {
-    if ( check_registration($_POST['login_of_user'], $_POST['email_of_user'],
-        $_POST['password_of_user'], $_POST['repeat_password_of_user'], $db) ) {
-        append_user( $db, $_POST['login_of_user'], $_POST['email_of_user'], hash('sha256', $_POST['password_of_user'].SALT) );
+    if (check_registration($_POST['login_of_user'], $_POST['email_of_user'],
+        $_POST['password_of_user'], $_POST['repeat_password_of_user'], $db)) {
+        append_user($db, $_POST['login_of_user'], $_POST['email_of_user'], hash('sha256', $_POST['password_of_user'] . SALT));
     }
 } ?>
+<script type="text/javascript" src="js/jquery-2.1.1.js"></script>
+<script src="scripts.js"></script>

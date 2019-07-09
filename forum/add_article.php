@@ -50,7 +50,14 @@ function translit($str)
     $lat = array('A', 'B', 'V', 'G', 'D', 'E', 'E', 'Gh', 'Z', 'I', 'Y', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'H', 'C', 'Ch', 'Sh', 'Sch', 'Y', 'Y', 'Y', 'E', 'Yu', 'Ya', 'a', 'b', 'v', 'g', 'd', 'e', 'e', 'gh', 'z', 'i', 'y', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'f', 'h', 'c', 'ch', 'sh', 'sch', 'y', 'y', 'y', 'e', 'yu', 'ya');
     return str_replace($rus, $lat, $str);
 }
-if (isset($_POST['add_article'])) {
-    add_article(trim(translit($_POST['title_of_article'])), trim($_POST['content_of_article']));
+if(isset($_SESSION['login_of_user']))    {
+    if (isset($_POST['add_article'])) {
+        $text = "<div>".trim($_POST['content_of_article'])."</div>";
+        add_article(trim(translit($_POST['title_of_article'])).".html", $text);
+    }
 }
+else {
+    echo "<h4>Для написания статей необходима авторизация</h4>";
+}
+
 ?>
